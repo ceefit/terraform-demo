@@ -64,8 +64,16 @@ resource "aws_instance" "webserver" {
   security_groups = [
     aws_security_group.allow_ssh_http.name
   ]
+  provisioner "remote-exec" {
+    script = "bootstrap.sh"
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      host     = aws_instance.webserver.public_ip
+      private_key = file("/home/chris/.ssh/terraform.pem")
+    }
+  }
 }
-
 
 output "ec2_instance_ip" {
   value = aws_instance.webserver.public_ip
@@ -74,7 +82,6 @@ output "ec2_instance_ip" {
 output "ec2_instance_id" {
   value = aws_instance.webserver.id
 }
-
 
 resource "docker_container" "webserver" {
   image = docker_image.nginx.latest
