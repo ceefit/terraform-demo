@@ -1,4 +1,5 @@
 .terraform
+*.tfstate
 *.tfplan
 *.backup
 credentials.auto.tfvars
