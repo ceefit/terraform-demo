@@ -5,3 +5,7 @@ variable "fastly_api_key" {
 variable "ec2_private_key" {
   type = string
 }
+
+variable "ngrok_authtoken" {
+  type = string
+}
