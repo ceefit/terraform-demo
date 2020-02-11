@@ -1,5 +1,5 @@
 provider "docker" {
-  host = "tcp://127.0.0.1:2376/"
+  host = "tcp://10.0.0.25:2376/"
 }
 
 provider "fastly" {

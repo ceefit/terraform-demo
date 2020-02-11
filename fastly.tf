@@ -11,7 +11,7 @@ resource "fastly_service_v1" "fastly_seedaware_web" {
     name        = "ec2-instance"
     port        = 80
     healthcheck = "ec2-healthcheck"
-    max_conn    = 1
+    max_conn    = 500
   }
 
   backend {
@@ -20,7 +20,7 @@ resource "fastly_service_v1" "fastly_seedaware_web" {
     port          = 80
     healthcheck   = "docker-healthcheck"
     override_host = "terraform.seedaware.com"
-    max_conn      = 1
+    max_conn      = 500
   }
 
   healthcheck {

@@ -35,27 +35,7 @@ resource "aws_instance" "webserver" {
     aws_security_group.allow_ssh_http.name
   ]
 
-  provisioner "file" {
-    source      = "ec2-index.html"
-    destination = "/tmp/index.html"
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host        = aws_instance.webserver.public_ip
-      private_key = file("/home/chris/.ssh/terraform.pem")
-    }
-  }
-
-  provisioner "remote-exec" {
-    script = "bootstrap.sh"
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host        = aws_instance.webserver.public_ip
-      private_key = file("/home/chris/.ssh/terraform.pem")
-    }
-  }
+  user_data = file("cloud-init.cfg")
 }
 
 output "ec2_instance_ip" {
